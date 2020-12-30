@@ -28,11 +28,25 @@ class Solution {
         StringBuilder filterStr = filterString(s);
         String string = filterStr.toString();
 
-        //反转字符串
-        String reverseStr = filterStr.reverse().toString();
+        //方法一：反转字符串后比较是否相等
+//        //反转字符串
+//        String reverseStr = filterStr.reverse().toString();
+//
+//        //比较是否相等
+//        return string.equals(reverseStr);
 
-        //比较是否相等
-        return string.equals(reverseStr);
+        //方法二：前后指针比较字符是否相等
+        int left = 0;
+        int right = string.length()-1;
+        while (left < right) {
+            if (string.charAt(left) != string.charAt(right)) {
+                return false;
+            } else {
+                left++;
+                right--;
+            }
+        }
+        return true;
     }
 
     private StringBuilder filterString(String string) {
