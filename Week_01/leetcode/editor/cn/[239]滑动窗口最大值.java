@@ -61,6 +61,7 @@
 // 👍 767 👎 0
 
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -68,6 +69,9 @@ import java.util.LinkedList;
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
         int len = nums.length;
+        if(len==0){
+            return new int[0];
+        }
         //1、暴力解算：双重循环
         int[] maxArr = new int[len - k + 1];
 //        int max;
@@ -83,34 +87,77 @@ class Solution {
         //2、单调递减双端队列：
         // 每移动一次窗口，队尾比较添加一个元素，队头比较删除一个元素
         // 每次队列操作完成后，队头元素即为当前窗口最大值
+//        Deque<Integer> deque = new LinkedList<>();
+//        int maxIndex= 0;
+//        //初始填充队列
+//        for (int i = 0; i < k; i++) {
+//            //添加元素时比大小，保证队列从头到尾递减
+//            //如果新加入的元素比队尾大，队尾出队
+//            while (!deque.isEmpty() && nums[i] > deque.peekLast()) {
+//                deque.pollLast();
+//            }
+//            deque.offerLast(nums[i]);
+//        }
+//        maxArr[maxIndex++] = deque.peekFirst();
+//        //移动窗口，每次加入一个元素，删除一个元素
+//        for (int i = k; i < len; i++) {
+//            //校验队头元素是否在窗口中，不在则出队
+//            //即队头元素是否刚刚退出窗口
+//            if (deque.peekFirst() == nums[i - k]) {
+//                deque.pollFirst();
+//            }
+//            //校验队尾元素大小
+//            while (!deque.isEmpty() && nums[i] > deque.peekLast()) {
+//                deque.pollLast();
+//            }
+//            deque.offerLast(nums[i]);
+//            maxArr[maxIndex++] = deque.peekFirst();
+//        }
+//
+//        return maxArr;
+
+        //第二遍：
+        //1、暴力解算
+//        int [] res = new int[len-k+1];
+//        int max = 0;
+//        for(int i = 0 ; i<=len-k ; i++){
+//            max = nums[i];
+//            for(int j=i+1;j<i+k;j++){
+//                max = Math.max(nums[j],max);
+//            }
+//            res[i]=max;
+//        }
+//        return res;
+
+        //2、单调递减双端队列
+        int resIndex = 0;
+        int[] res = new int[len - k + 1];
         Deque<Integer> deque = new LinkedList<>();
-        int maxIndex= 0;
-        //初始填充队列
+
+        //填充窗口队列，窗口长度k
         for (int i = 0; i < k; i++) {
-            //添加元素时比大小，保证队列从头到尾递减
-            //如果新加入的元素比队尾大，队尾出队
             while (!deque.isEmpty() && nums[i] > deque.peekLast()) {
                 deque.pollLast();
             }
             deque.offerLast(nums[i]);
         }
-        maxArr[maxIndex++] = deque.peekFirst();
-        //移动窗口，每次加入一个元素，删除一个元素
+        res[resIndex++] = deque.getFirst();
+
+        //移动窗口
         for (int i = k; i < len; i++) {
-            //校验队头元素是否在窗口中，不在则出队
-            //即队头元素是否刚刚退出窗口
+            //退出窗口的元素nums[i-k] 是否还在队列中，是则弹出
             if (deque.peekFirst() == nums[i - k]) {
                 deque.pollFirst();
             }
-            //校验队尾元素大小
+            //队列+1
             while (!deque.isEmpty() && nums[i] > deque.peekLast()) {
                 deque.pollLast();
             }
             deque.offerLast(nums[i]);
-            maxArr[maxIndex++] = deque.peekFirst();
+            res[resIndex++] = deque.getFirst();
         }
+        return res;
 
-        return maxArr;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

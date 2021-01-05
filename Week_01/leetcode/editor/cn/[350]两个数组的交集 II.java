@@ -48,7 +48,7 @@ class Solution {
 //        //确定指针边界
 //        int length1 = nums1.length;
 //        int length2 = nums2.length;
-//        //创建结果数组
+////        //创建结果数组
 //        int resIndex = 0;
 //        int[] res = new int[Math.min(length1, length2)];
 //        //开始遍历，任意指针超出边界即终止
@@ -69,16 +69,36 @@ class Solution {
 //        return Arrays.copyOfRange(res,0,resIndex);
 
         //2、哈希表：查询时间复杂度O(1)
+        int length1 = nums1.length;
+        int length2 = nums2.length;
+        if (length1 > length2) {
+            return intersect(nums2, nums1);
+        }
         Map<Integer, Integer> map = new HashMap<>();
-        for (Integer num : nums1.length > nums2.length ? nums2 : nums1) {
-            int count =0;
+        //遍历数组，以值为key，以出现次数为值，存入map
+        for (Integer num : nums1) {
             if (map.containsKey(num)) {
                 Integer integer = map.get(num);
                 integer++;
-                map.put(n )
+                map.put(num, integer);
+            } else {
+                map.put(num, 1);
             }
-            map.put(num,)
         }
+        int resIndex = 0;
+        int[] res = new int[length1];
+        //遍历数组，匹配到则出现次数-1，存入结果，知道出现次数为0
+        for (Integer num : nums2) {
+            if (map.containsKey(num)) {
+                Integer integer = map.get(num);
+                if (integer > 0) {
+                    integer--;
+                    map.put(num, integer);
+                    res[resIndex++] = num;
+                }
+            }
+        }
+        return Arrays.copyOfRange(res, 0, resIndex);
     }
 
 }
