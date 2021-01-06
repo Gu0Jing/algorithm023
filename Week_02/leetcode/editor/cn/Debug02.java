@@ -7,7 +7,7 @@
  * 创建人:    GuoJing
  * 创建时间:  2021/1/4/0004 9:20
  */
-public class Debug implements Comparable {
+public class Debug02 implements Comparable {
 
     @Override
     public int compareTo(Object o) {
