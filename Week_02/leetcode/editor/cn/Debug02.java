@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * 类作用:
  * 项目名称:  whale
