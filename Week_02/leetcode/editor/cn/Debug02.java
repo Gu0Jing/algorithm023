@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * 类作用:
@@ -17,12 +17,23 @@ public class Debug02 implements Comparable {
     }
 
     public static void main(String[] args) {
-        int n=3;
-        int[] res = new int[n + 1];
-        res[0] = 0;
-        res[1] = 1;
-        for (int i = 2; i <= n; i++) {
-            res[n] = res[n - 1] + res[n - 2];
+        String [] strs = new String[]{"eat","tea","tan","ate","nat","bat"};
+        ArrayList<List<String>> lists = new ArrayList<>();
+        HashMap<String, List<String>> map = new HashMap<>();
+        for (String s : strs) {
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+            if (map.containsKey(key)) {
+                List<String> list = map.get(key);
+                list.add(s);
+                map.put(key, list);
+            } else {
+                map.put(key, new ArrayList<>());
+            }
+        }
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            lists.add(entry.getValue());
         }
     }
 

@@ -54,12 +54,12 @@ class Solution {
 
         //2、使用哈希表存储映射关系,即利用哈希表存储字典
         //注意字典的插入顺序与题干一致，需要使用LinkedHashMap保证顺序
-        HashMap<Integer, String> dictory = new LinkedHashMap<>();
-        dictory.put(3, "Fizz");
-        dictory.put(5, "Buzz");
+        Map<Integer, String> dictionary = new LinkedHashMap<>();
+        dictionary.put(3, "Fizz");
+        dictionary.put(5, "Buzz");
         for (int i = 1; i <= n; i++) {
             StringBuilder resStr = new StringBuilder();
-            for (Map.Entry<Integer, String> key : dictory.entrySet()) {
+            for (Map.Entry<Integer, String> key : dictionary.entrySet()) {
                 if (i % key.getKey() == 0) {
                     resStr.append(key.getValue());
                 }
@@ -70,7 +70,6 @@ class Solution {
             res.add(resStr.toString());
         }
         return res;
-
 
     }
 }
