@@ -12,29 +12,43 @@
 // 尽量减少操作次数。 
 // 
 // Related Topics 数组 双指针 
-// 👍 900 👎 0
+// 👍 908 👎 0
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public void moveZeroes(int[] nums) {
-        //入参校验
         if (nums == null || nums.length == 0) {
             return;
         }
-        //添加零元素指针指向第一个元素
-        //遍历数组，如果当前元素不是0，且不和零指针重合，交换位置
-        //当前元素不是0时，零指针向后移动
+        //1、双指针
+//        int left = 0;
+//        int right = 0;
+//        while (right < nums.length) {
+//            if (nums[right] != 0) {
+//                swap(nums, left, right);
+//                left++;
+//            }
+//            right++;
+//        }
+        //2、零指针
         int zeroIndex = 0;
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] != 0) {
                 if (zeroIndex != i) {
-                    nums[zeroIndex] = nums[i];
-                    nums[i] = 0;
+                    //当前元素不为零且不和零指针重叠，交换
+                    swap(nums, zeroIndex, i);
                 }
+                //当前元素不为零时，零指针右移
                 zeroIndex++;
             }
         }
+    }
+
+    public void swap(int[] nums, int left, int right) {
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
