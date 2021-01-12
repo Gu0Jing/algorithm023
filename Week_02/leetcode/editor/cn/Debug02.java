@@ -14,20 +14,12 @@ public class Debug02 {
 
 
     public static void main(String[] args) {
-        int[] nums = new int[]{1,3,-1,-3,5,3,6,7};
-        int k = 3;
+        int[] nums = new int[]{7,2,4};
+        int k = 2;
         int[] res = new int[nums.length - k + 1];
-        //1、大根堆
-        PriorityQueue<Integer> heap = new PriorityQueue<>(k, (a, b) -> b - a);
-        //填满窗口
-        for (int i = 0; i < k; i++) {
-            heap.offer(nums[i]);
-        }
-        int maxIndex = 0;
-        for (int i = k; i < nums.length; i++) {
-            res[maxIndex++] = heap.poll();
-            heap.offer(nums[i]);
-        }
+        Deque<Integer> deque = new ArrayDeque<>();
+
+
     }
 
 }
