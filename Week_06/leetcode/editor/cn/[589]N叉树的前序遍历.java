@@ -13,10 +13,9 @@
 // 
 //
 // 说明: 递归法很简单，你可以使用迭代法完成此题吗? Related Topics 树 
-// 👍 128 👎 0
+// 👍 134 👎 0
 
 import Week_02.leetcode.editor.cn.Node;
-
 //leetcode submit region begin(Prohibit modification and deletion)
 /*
 // Definition for a Node.
@@ -43,19 +42,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
-    private List<Integer> res = new ArrayList<>();
-
+    private ArrayList<Integer> res = new ArrayList<>();
     public List<Integer> preorder(Node root) {
-        if (root != null) {
-            res.add(root.val);
-            List<Node> children = root.children;
-            if (children != null) {
-                for (Node child : children) {
-                    preorder(child);
-                }
-            }
+        //根-子节点
+        if (root == null) {
+            return res;
+        }
+        res.add(root.val);
+        for (Node node : root.children) {
+            preorder(node);
         }
         return res;
     }
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
