@@ -35,21 +35,36 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int rob(int[] nums) {
+        int len = nums.length;
+        if (len == 0 || len == 1) {
+            return len == 0 ? 0 : nums[0];
+        }
+
+        //1、dp[][]：存储多维信息可以采用数组升维的方式
+        //第一维存储前i间房屋偷盗的最大金额
+        //第二维存储偷不偷当前屋：0不偷，1偷
+        int[][] dp = new int[len][2];
+        dp[0][0] = 0;
+        dp[0][1] = nums[0];
+        for (int i = 1; i < len; i++) {
+            //不同当前房屋i，那么房屋i-1 可偷可不偷
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
+            dp[i][1] = dp[i - 1][0] + nums[i];
+        }
+        return Math.max(dp[len - 1][0], dp[len - 1][1]);
+
+        //2、dp[]
         //dp[i]存储前i间房屋偷盗的最大金额
         //情况1：偷第i间：dp[i]=dp[i-2]+nums[i]
         //情况2：不偷i间：dp[i]=dp[i-1]
         //综上：dp[i]=max(dp[i-2]+nums[i],dp[i-1])
-
-        if (nums.length == 0 || nums.length == 1) {
-            return nums.length == 0 ? 0 : nums[0];
-        }
-        int[] dp = new int[nums.length];
-        dp[0]=nums[0];//只有一间房
-        dp[1]=Math.max(nums[0],nums[1]);//有二间房
-        for (int i = 2; i < nums.length; i++) {//有三间房。。。
-            dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
-        }
-        return dp[dp.length - 1];
+//        int[] dp = new int[len];
+//        dp[0]=nums[0];//只有一间房
+//        dp[1]=Math.max(nums[0],nums[1]);//有二间房
+//        for (int i = 2; i < len; i++) {//有三间房。。。
+//            dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+//        }
+//        return dp[len - 1];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
