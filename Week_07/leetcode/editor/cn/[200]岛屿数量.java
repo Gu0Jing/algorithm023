@@ -56,14 +56,14 @@ class Solution {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j]=='1') {
                     count++;
-                    bfsMarking(grid, i, j);
+                    dfsMarking(grid, i, j);
                 }
             }
         }
         return count;
     }
 
-    private void bfsMarking(char[][] grid, int i, int j) {
+    private void dfsMarking(char[][] grid, int i, int j) {
         if (i < 0 || i > m-1 || j < 0 || j > n-1) {
             return;
         }
@@ -71,10 +71,10 @@ class Solution {
             return;
         }
         grid[i][j] = '0';
-        bfsMarking(grid, i - 1, j);
-        bfsMarking(grid, i + 1, j);
-        bfsMarking(grid, i, j - 1);
-        bfsMarking(grid, i, j + 1);
+        dfsMarking(grid, i - 1, j);
+        dfsMarking(grid, i + 1, j);
+        dfsMarking(grid, i, j - 1);
+        dfsMarking(grid, i, j + 1);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
